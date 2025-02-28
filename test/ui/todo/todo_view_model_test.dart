@@ -26,5 +26,20 @@ void main() {
         expect(viewModel.todos, isNotEmpty);
       });
     });
+
+    group('#removeTodo', () {
+      test('should delete todo', () async {
+        final viewModel = TodoViewModel();
+
+        await viewModel.addTodo.execute('Buy milk');
+        await viewModel.addTodo.execute('Buy bread');
+
+        expect(viewModel.todos, hasLength(2));
+
+        await viewModel.removeTodo.execute(viewModel.todos.first);
+
+        expect(viewModel.todos, hasLength(1));
+      });
+    });
   });
 }
