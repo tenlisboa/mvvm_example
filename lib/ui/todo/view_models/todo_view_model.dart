@@ -21,6 +21,12 @@ class TodoViewModel extends ChangeNotifier {
   Future<Result> _load() async {
     await Future.delayed(Duration(seconds: 1));
 
+    _todos.addAll([
+      Todo(id: 1, title: 'Buy milk'),
+      Todo(id: 2, title: 'Buy eggs'),
+      Todo(id: 3, title: 'Buy bread'),
+    ]);
+
     notifyListeners();
 
     return Result.ok(_todos);
