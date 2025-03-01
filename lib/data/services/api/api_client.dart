@@ -39,4 +39,30 @@ class ApiClient {
       client.close();
     }
   }
+
+  Future<Result<Todo>> createTodo(String title) async {
+    final client = _clientHttpFactory();
+
+    try {
+      final request = await client.post(_host, _port, "/todos");
+
+      request.write(jsonEncode({
+        'title': title,
+      }));
+
+      final response = await request.close();
+
+      if (response.statusCode == 201) {
+        final body = await response.transform<String>(utf8.decoder).join();
+        final json = jsonDecode(body);
+        final createdTodo = Todo.fromJson(json);
+
+        return Result.ok(createdTodo);
+      } else {
+        return Result.error(const HttpException("Failed to create todo"));
+      }
+    } on Exception catch (e) {
+      return Result.error(e);
+    }
+  }
 }

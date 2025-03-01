@@ -20,5 +20,13 @@ void main() {
         });
       });
     });
+
+    group('#createTodo', () {
+      test('should return a todo', () async {
+        final result = await apiClient.createTodo('Test');
+
+        expect(result.asOk.value, isA<Todo>());
+      });
+    });
   });
 }
