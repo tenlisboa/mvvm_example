@@ -43,6 +43,7 @@ class TodoViewModel extends ChangeNotifier {
 
     switch (result) {
       case Ok<Todo>():
+        _todos.add(result.value);
         notifyListeners();
         break;
       case Error<Todo>():

@@ -73,7 +73,7 @@ class ApiClient {
 
       final response = await request.close();
 
-      if (response.statusCode == 204) {
+      if (response.statusCode == 200) {
         return Result.ok(null);
       } else {
         return Result.error(const HttpException("Failed to delete todo"));
