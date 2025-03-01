@@ -1,12 +1,20 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mvvm_example/data/repositories/todos/todos_repository.dart';
+import 'package:mvvm_example/data/repositories/todos/todos_repository_dev.dart';
 import 'package:mvvm_example/ui/todo/view_models/todo_view_model.dart';
 
 void main() {
+  late TodoViewModel viewModel;
+  late TodosRepository todosRepository;
+
+  setUp(() {
+    todosRepository = TodosRepositoryDev();
+    viewModel = TodoViewModel(todosRepository: todosRepository);
+  });
+
   group('.TodoViewModel', () {
     group('#addTodo', () {
       test('should add todo', () async {
-        final viewModel = TodoViewModel();
-
         expect(viewModel.todos, isEmpty);
 
         await viewModel.addTodo.execute('Buy milk');
@@ -16,8 +24,6 @@ void main() {
     });
     group('#load', () {
       test('should load todos', () async {
-        final viewModel = TodoViewModel();
-
         expect(viewModel.todos, isEmpty);
 
         await viewModel.addTodo.execute('Buy milk');
@@ -29,8 +35,6 @@ void main() {
 
     group('#removeTodo', () {
       test('should delete todo', () async {
-        final viewModel = TodoViewModel();
-
         await viewModel.addTodo.execute('Buy milk');
         await viewModel.addTodo.execute('Buy bread');
 

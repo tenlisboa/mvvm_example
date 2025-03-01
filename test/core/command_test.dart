@@ -125,7 +125,7 @@ void main() {
       group('when error', () {
         test('should set error', () async {
           final command =
-              Command1<Object, int>((p1) async => Exception("error").error());
+              Command1<dynamic, int>((p1) async => Exception("error").error());
 
           await command.execute(42);
 
