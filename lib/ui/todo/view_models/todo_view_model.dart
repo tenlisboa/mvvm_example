@@ -1,54 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:mvvm_example/core/commands/command.dart';
 import 'package:mvvm_example/core/result/result.dart';
+import 'package:mvvm_example/data/repositories/todos/todos_repository.dart';
 import 'package:mvvm_example/domain/models/todo.dart';
 
 class TodoViewModel extends ChangeNotifier {
-  late Command0 load;
+  late Command0<List<Todo>> load;
   late Command1<Todo, String> addTodo;
   late Command1<void, Todo> removeTodo;
 
-  final List<Todo> _todos = [];
+  List<Todo> _todos = [];
 
   List<Todo> get todos => List.unmodifiable(_todos);
 
-  TodoViewModel() {
+  final TodosRepository _todosRepository;
+
+  TodoViewModel({required TodosRepository todosRepository})
+      : _todosRepository = todosRepository {
     load = Command0(_load)..execute();
     addTodo = Command1(_addTodo);
     removeTodo = Command1(_deleteTodo);
   }
 
   Future<Result<List<Todo>>> _load() async {
-    await Future.delayed(Duration(seconds: 1));
+    final result = await _todosRepository.fetchTodos();
 
-    // _todos.addAll([
-    //   Todo(id: 1, title: 'Buy milk'),
-    //   Todo(id: 2, title: 'Buy eggs'),
-    //   Todo(id: 3, title: 'Buy bread'),
-    // ]);
+    switch (result) {
+      case Ok<List<Todo>>():
+        _todos = result.value;
+        notifyListeners();
+        break;
+      case Error<List<Todo>>():
+        // TODO: Logging
+        break;
+    }
 
-    notifyListeners();
-
-    return Result.ok(_todos);
+    return result;
   }
 
   Future<Result<Todo>> _addTodo(String title) async {
-    final todo = Todo(
-      id: _todos.length + 1,
-      title: title,
-    );
-    _todos.add(todo);
+    final result = await _todosRepository.addNewTodo(title);
 
-    notifyListeners();
+    switch (result) {
+      case Ok<Todo>():
+        notifyListeners();
+        break;
+      case Error<Todo>():
+        // TODO: Logging
+        break;
+    }
 
-    return Result.ok(todo);
+    return result;
   }
 
-  Future<Result<List<Todo>>> _deleteTodo(Todo todo) async {
-    _todos.remove(todo);
+  Future<Result<void>> _deleteTodo(Todo todo) async {
+    final result = await _todosRepository.removeTodoById(todo.id);
 
-    notifyListeners();
+    switch (result) {
+      case Ok<void>():
+        _todos.remove(todo);
+        notifyListeners();
+        break;
+      case Error<void>():
+        // TODO: Logging
+        break;
+    }
 
-    return Result.ok(_todos);
+    return result;
   }
 }
