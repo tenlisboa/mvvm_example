@@ -27,7 +27,7 @@ class ApiClient {
 
       if (response.statusCode == 200) {
         final body = await response.transform<String>(Utf8Decoder()).join();
-        final List<Map<String, dynamic>> json = jsonDecode(body);
+        final List<dynamic> json = jsonDecode(body);
         final List<Todo> todos = json.map((e) => Todo.fromJson(e)).toList();
         return Result.ok(todos);
       } else {
