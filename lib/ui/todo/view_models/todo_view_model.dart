@@ -18,7 +18,7 @@ class TodoViewModel extends ChangeNotifier {
     removeTodo = Command1(_deleteTodo);
   }
 
-  Future<Result> _load() async {
+  Future<Result<List<Todo>>> _load() async {
     await Future.delayed(Duration(seconds: 1));
 
     // _todos.addAll([
@@ -44,7 +44,7 @@ class TodoViewModel extends ChangeNotifier {
     return Result.ok(todo);
   }
 
-  Future<Result> _deleteTodo(Todo todo) async {
+  Future<Result<List<Todo>>> _deleteTodo(Todo todo) async {
     _todos.remove(todo);
 
     notifyListeners();
