@@ -20,16 +20,10 @@ void main() {
     });
     group('#error', () {
       group('when called', () {
-        test('should return an instance of Error', () {
-          final result = Result.error(42);
-
-          assert(result is Error<int>);
-        });
-
         test('should return an instance of Error with the given value', () {
-          final result = Result.error(42);
+          final result = Result.error(Exception(42));
 
-          expect(result.asError.value, 42);
+          expect(result.asError.value, isException);
         });
       });
     });

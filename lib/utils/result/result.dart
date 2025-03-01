@@ -1,21 +1,27 @@
 abstract class Result<T> {
   const Result();
 
-  factory Result.ok(T value) = Ok._;
+  const factory Result.ok(T value) = Ok._;
 
-  factory Result.error(T value) = Error._;
+  const factory Result.error(Exception value) = Error._;
 }
 
 final class Ok<T> extends Result<T> {
   const Ok._(this.value);
 
   final T value;
+
+  @override
+  String toString() => 'Result<$T>.ok($value)';
 }
 
 final class Error<T> extends Result<T> {
   const Error._(this.value);
 
-  final T value;
+  final Exception value;
+
+  @override
+  String toString() => 'Result<$T>.error($value)';
 }
 
 extension ResultExtension on Object {
