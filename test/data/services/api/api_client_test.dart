@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mvvm_example/data/services/api/api_client.dart';
+import 'package:mvvm_example/data/services/api/models/todo_api_model.dart';
 import 'package:mvvm_example/domain/models/todo.dart';
 import 'package:mvvm_example/utils/result/result.dart';
 
@@ -23,7 +24,8 @@ void main() {
 
     group('#createTodo', () {
       test('should return a todo', () async {
-        final result = await apiClient.createTodo('Test');
+        final result =
+            await apiClient.createTodo(CreateTodoApiModel(title: 'test'));
 
         expect(result.asOk.value, isA<Todo>());
       });
@@ -31,12 +33,8 @@ void main() {
 
     group('#deleteTodoById', () {
       test('should return null', () async {
-        final Todo todo = Todo(
-          id: "1",
-          title: 'Test',
-        );
-
-        final createResult = await apiClient.createTodo(todo.title);
+        final createResult =
+            await apiClient.createTodo(CreateTodoApiModel(title: 'test'));
 
         final deleteResult =
             await apiClient.deleteTodoById(createResult.asOk.value.id);

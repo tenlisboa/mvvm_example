@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:mvvm_example/data/services/api/models/todo_api_model.dart';
 import 'package:mvvm_example/domain/models/todo.dart';
 import 'package:mvvm_example/utils/result/result.dart';
 
@@ -40,15 +41,13 @@ class ApiClient {
     }
   }
 
-  Future<Result<Todo>> createTodo(String title) async {
+  Future<Result<Todo>> createTodo(CreateTodoApiModel todo) async {
     final client = _clientHttpFactory();
 
     try {
       final request = await client.post(_host, _port, "/todos");
 
-      request.write(jsonEncode({
-        'title': title,
-      }));
+      request.write(jsonEncode(todo.toJson()));
 
       final response = await request.close();
 
