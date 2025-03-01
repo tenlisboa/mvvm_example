@@ -28,7 +28,10 @@ class TodoScreen extends StatelessWidget {
         child: ListenableBuilder(
           listenable: viewModel,
           builder: (context, child) {
-            return TodosList(todos: viewModel.todos);
+            return TodosList(
+              todos: viewModel.todos,
+              viewModel: viewModel,
+            );
           },
         ),
       ),
