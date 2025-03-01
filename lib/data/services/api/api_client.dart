@@ -65,4 +65,22 @@ class ApiClient {
       return Result.error(e);
     }
   }
+
+  Future<Result<void>> deleteTodoById(String id) async {
+    final client = _clientHttpFactory();
+
+    try {
+      final request = await client.delete(_host, _port, "/todos/$id");
+
+      final response = await request.close();
+
+      if (response.statusCode == 204) {
+        return Result.ok(null);
+      } else {
+        return Result.error(const HttpException("Failed to delete todo"));
+      }
+    } on Exception catch (e) {
+      return Result.error(e);
+    }
+  }
 }

@@ -28,5 +28,28 @@ void main() {
         expect(result.asOk.value, isA<Todo>());
       });
     });
+
+    group('#deleteTodoById', () {
+      test('should return null', () async {
+        final Todo todo = Todo(
+          id: "1",
+          title: 'Test',
+        );
+
+        final createResult = await apiClient.createTodo(todo.title);
+
+        final deleteResult =
+            await apiClient.deleteTodoById(createResult.asOk.value.id);
+
+        final fetchResult = await apiClient.fetchTodos();
+
+        expect(fetchResult.asOk.value, isA<List<Todo>>());
+        expect(
+            fetchResult.asOk.value
+                .where((todo) => todo.id == createResult.asOk.value.id),
+            isEmpty);
+        expect(deleteResult, isA<Result<void>>());
+      });
+    });
   });
 }

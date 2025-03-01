@@ -1,5 +1,5 @@
 class Todo {
-  final int id;
+  final String id;
   final String title;
 
   Todo({
@@ -9,7 +9,7 @@ class Todo {
 
   factory Todo.fromJson(Map<String, dynamic> json) {
     return Todo(
-      id: int.parse(json['id']),
+      id: json['id'].toString(),
       title: json['title'],
     );
   }

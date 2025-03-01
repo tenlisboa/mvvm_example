@@ -8,7 +8,7 @@ class TodosRepositoryDev implements TodosRepository {
   @override
   Future<Result<Todo>> addNewTodo(String title) async {
     final todo = Todo(
-      id: _todos.length + 1,
+      id: (_todos.length + 1).toString(),
       title: title,
     );
 
@@ -23,7 +23,7 @@ class TodosRepositoryDev implements TodosRepository {
   }
 
   @override
-  Future<Result<void>> removeTodoById(int id) async {
+  Future<Result<void>> removeTodoById(String id) async {
     final todo = _todos.firstWhere((element) => element.id == id);
 
     _todos.remove(todo);
