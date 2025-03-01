@@ -21,11 +21,11 @@ class TodoViewModel extends ChangeNotifier {
   Future<Result> _load() async {
     await Future.delayed(Duration(seconds: 1));
 
-    _todos.addAll([
-      Todo(id: 1, title: 'Buy milk'),
-      Todo(id: 2, title: 'Buy eggs'),
-      Todo(id: 3, title: 'Buy bread'),
-    ]);
+    // _todos.addAll([
+    //   Todo(id: 1, title: 'Buy milk'),
+    //   Todo(id: 2, title: 'Buy eggs'),
+    //   Todo(id: 3, title: 'Buy bread'),
+    // ]);
 
     notifyListeners();
 
@@ -33,8 +33,6 @@ class TodoViewModel extends ChangeNotifier {
   }
 
   Future<Result<Todo>> _addTodo(String title) async {
-    await Future.delayed(Duration(seconds: 1));
-
     final todo = Todo(
       id: _todos.length + 1,
       title: title,
@@ -47,8 +45,6 @@ class TodoViewModel extends ChangeNotifier {
   }
 
   Future<Result> _deleteTodo(Todo todo) async {
-    await Future.delayed(Duration(seconds: 1));
-
     _todos.remove(todo);
 
     notifyListeners();

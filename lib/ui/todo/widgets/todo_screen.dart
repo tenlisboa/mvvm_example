@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mvvm_example/ui/todo/view_models/todo_view_model.dart';
+import 'package:mvvm_example/ui/todo/widgets/add_todo_dialog.dart';
+import 'package:mvvm_example/ui/todo/widgets/todos_list.dart';
 
 class TodoScreen extends StatelessWidget {
   const TodoScreen({super.key, required this.viewModel});
@@ -24,23 +26,24 @@ class TodoScreen extends StatelessWidget {
           return child!;
         },
         child: ListenableBuilder(
-            listenable: viewModel,
-            builder: (context, child) {
-              return ListView.builder(
-                itemCount: viewModel.todos.length,
-                itemBuilder: (context, index) {
-                  final todo = viewModel.todos[index];
-                  return ListTile(
-                    leading: Text(todo.id.toString()),
-                    title: Text(todo.title),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete),
-                      onPressed: () => viewModel.removeTodo.execute(todo),
-                    ),
-                  );
-                },
+          listenable: viewModel,
+          builder: (context, child) {
+            return TodosList(todos: viewModel.todos);
+          },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AddTodoDialog(
+                viewModel: viewModel,
               );
-            }),
+            },
+          );
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
