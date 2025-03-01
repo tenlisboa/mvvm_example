@@ -1,4 +1,4 @@
-import 'package:mvvm_example/core/result/result.dart';
+import 'package:mvvm_example/utils/result/result.dart';
 import 'package:mvvm_example/domain/models/todo.dart';
 
 abstract class TodosRepository {

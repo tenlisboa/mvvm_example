@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mvvm_example/core/commands/command.dart';
-import 'package:mvvm_example/core/result/result.dart';
+import 'package:mvvm_example/utils/commands/command.dart';
+import 'package:mvvm_example/utils/result/result.dart';
 import 'package:mvvm_example/data/repositories/todos/todos_repository.dart';
 import 'package:mvvm_example/domain/models/todo.dart';
 

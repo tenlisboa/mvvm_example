@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mvvm_example/core/result/result.dart';
+import 'package:mvvm_example/utils/result/result.dart';
 
 void main() {
   group('.Result', () {

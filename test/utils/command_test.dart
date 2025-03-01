@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mvvm_example/core/commands/command.dart';
-import 'package:mvvm_example/core/result/result.dart';
+import 'package:mvvm_example/utils/commands/command.dart';
+import 'package:mvvm_example/utils/result/result.dart';
 
 void main() {
   group('.Command0', () {

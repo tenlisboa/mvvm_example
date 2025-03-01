@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mvvm_example/core/result/result.dart';
+import 'package:mvvm_example/utils/result/result.dart';
 
 typedef CommandAction0<T> = Future<Result<T>> Function();
 typedef CommandAction1<T, P1> = Future<Result<T>> Function(P1);
